@@ -1,0 +1,40 @@
+{
+  "name": "benjaminmedia/bbpress-best-answer",
+  "description": "Best answer plugin for bbPress",
+  "type": "wordpress-plugin",
+  "keywords": ["wordpress", "plugin", "bbPress"],
+  "homepage": "https://github.com/BenjaminMedia/wp-wa-oauth",
+  "repositories":[
+    {
+      "type": "composer",
+      "url": "http://wpackagist.org"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Bonnier Publications",
+      "email": "interactive@bonnier.dk",
+      "homepage": "http://bonnierpublications.com"
+    },
+    {
+      "name": "Michael Sørensen",
+      "email": "michael.sorensen@bonnier.dk"
+    },
+    {
+      "name": "Frederik Rabøl",
+      "email": "frederik.raboel@bonnier.dk"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/BenjaminMedia/bbpress-best-answer/issues",
+    "source": "https://github.com/BenjaminMedia/bbpress-best-answer"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bonnier\\WP\\BestAnswer\\": "src/Bonnier/WP/BestAnswer/"
+    }
+  },
+  "require": {
+    "php": ">=5.6"
+  }
+}
