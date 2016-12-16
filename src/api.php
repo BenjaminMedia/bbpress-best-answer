@@ -5,7 +5,7 @@
  *
  * @return \Bonnier\WP\BestAnswer\Plugin|null
  */
-function bp_best_answer()
+function bbpress_best_answer()
 {
-    return isset($GLOBALS['bp_best_answer']) ? $GLOBALS['bp_best_answer'] : null;
+    return isset($GLOBALS['bbpress_best_answer']) ? $GLOBALS['bbpress_best_answer'] : null;
 }
