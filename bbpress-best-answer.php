@@ -78,8 +78,6 @@ class Plugin
 
         // Load textdomain
         load_plugin_textdomain(self::TEXT_DOMAIN, false, dirname($this->basename) . '/languages');
-
-
     }
 
     private function boostrap()
@@ -108,9 +106,14 @@ class Plugin
         return self::$instance;
     }
 
-    public function get_link()
+    public function get_mark_best_answer_permalink()
     {
-        echo Reply::generate_url();
+        echo Reply::generate_best_answer_url();
+    }
+
+    public function get_remove_best_answer_permalink()
+    {
+        echo Reply::generate_removal_url();
     }
 
     /**
