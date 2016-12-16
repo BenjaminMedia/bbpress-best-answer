@@ -13,8 +13,10 @@ class Reply
 
     public static function register()
     {
-        add_filter( 'query_vars', [__CLASS__, 'add_query_vars_filter']);
-        add_filter( 'parse_query', [__CLASS__, 'parse_best_answer']);
+        if(static::isAuthenticated()) {
+            add_filter('query_vars', [__CLASS__, 'add_query_vars_filter']);
+            add_filter('parse_query', [__CLASS__, 'parse_best_answer']);
+        }
     }
 
     public static function parse_best_answer(WP_Query $query)
@@ -103,5 +105,10 @@ class Reply
             PostMetaBox::SOLVED_BY_REPLY_SETTING_KEY,
             sanitize_text_field($reply)
         );
+    }
+
+    private static function isAuthenticated()
+    {
+        return wp_get_current_user()->ID !== 0;
     }
 }
