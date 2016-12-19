@@ -18,11 +18,14 @@ class PostMetaBox
      */
     public static function register_meta_box()
     {
-        add_action('do_meta_boxes', function() {
-            add_meta_box('_bbp_forum_description', 'Best Answer', [__CLASS__, 'meta_box_content'], 'reply','side','high');
-        });
+        if(current_user_can('manage_options'))
+        {
+            add_action('do_meta_boxes', function() {
+                add_meta_box('_bbp_forum_description', 'Best Answer', [__CLASS__, 'meta_box_content'], 'reply','side','high');
+            });
 
-        add_action('save_post', [__CLASS__, 'save_meta_box_settings']);
+            add_action('save_post', [__CLASS__, 'save_meta_box_settings']);
+        }
     }
 
     public static function meta_box_content()
