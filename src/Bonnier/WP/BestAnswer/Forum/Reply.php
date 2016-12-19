@@ -13,14 +13,17 @@ class Reply
 
     public static function register()
     {
-        if(static::isAuthenticated()) {
-            add_filter('query_vars', [__CLASS__, 'add_query_vars_filter']);
-            add_filter('parse_query', [__CLASS__, 'parse_best_answer']);
-        }
+        add_filter('query_vars', [__CLASS__, 'add_query_vars_filter']);
+        add_filter('parse_query', [__CLASS__, 'parse_best_answer']);
     }
 
     public static function parse_best_answer(WP_Query $query)
     {
+        if(!static::hasAccess())
+        {
+            return;
+        }
+
         $bestAnswer = (int)$query->get(self::BEST_ANSWER_GET_PARAMETER);
         $removeBestAnswer = (int)$query->get(self::REMOVE_ANSWER_GET_PARAMETER);
 
@@ -107,8 +110,12 @@ class Reply
         );
     }
 
-    private static function isAuthenticated()
+    private static function hasAccess()
     {
-        return wp_get_current_user()->ID !== 0;
+        if(current_user_can('manage_options') || bbp_get_forum_author_id(get_the_ID()) === get_current_user_id())
+        {
+            return true;
+        }
+        return false;
     }
 }
