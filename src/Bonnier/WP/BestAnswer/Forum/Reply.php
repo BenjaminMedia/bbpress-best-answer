@@ -15,39 +15,38 @@ class Reply
     {
         add_filter('query_vars', [__CLASS__, 'add_query_vars_filter']);
         add_filter('parse_query', [__CLASS__, 'parse_best_answer']);
+        add_filter('parse_query', [__CLASS__, 'parse_remove_answer']);
+    }
+
+    public static function parse_remove_answer(WP_Query $query)
+    {
+        if(!static::has_access())
+            return;
+
+        $removeAnswer = (int) $query->get(self::REMOVE_ANSWER_GET_PARAMETER);
+
+        if(bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($removeAnswer)) < 2)
+            return;
+
+        if(!empty($removeAnswer) && is_numeric($removeAnswer)) {
+            self::remove_best_answer($removeAnswer);
+            self::redirect_back();
+        }
     }
 
     public static function parse_best_answer(WP_Query $query)
     {
-        if(!static::hasAccess())
-        {
+        // If the user dose not have access
+        if(!static::has_access())
             return;
-        }
 
-        $bestAnswer = (int)$query->get(self::BEST_ANSWER_GET_PARAMETER);
-        $removeBestAnswer = (int)$query->get(self::REMOVE_ANSWER_GET_PARAMETER);
+        $bestAnswer = (int) $query->get(self::BEST_ANSWER_GET_PARAMETER);
 
-        if(!empty($bestAnswer))
-        {
-            if(!is_numeric($bestAnswer))
-            {
+        if(!empty($bestAnswer) && is_numeric($bestAnswer)) {
+            if(bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($bestAnswer)) < 2)
                 return;
-            }
 
             self::set_best_answer($bestAnswer);
-
-            // redirect without param
-            self::redirect_back();
-        }
-
-        if(!empty($removeBestAnswer))
-        {
-            if(!is_numeric($removeBestAnswer))
-            {
-                return;
-            }
-
-            self::remove_best_answer($removeBestAnswer);
 
             // redirect without param
             self::redirect_back();
@@ -78,6 +77,9 @@ class Reply
         ], bbp_topic_permalink(bbp_get_reply_topic_id(get_the_ID())));
     }
 
+    /**
+     * Redirects back without parameters
+     */
     private static function redirect_back()
     {
         global $wp;
@@ -110,10 +112,10 @@ class Reply
         );
     }
 
-    private static function hasAccess()
+    public static function has_access()
     {
-        if(current_user_can('manage_options') || bbp_get_topic_author_id(bbp_get_reply_topic_id(bbp_get_reply_id())) === get_current_user_id())
-        {
+        if(current_user_can('manage_options')
+            || bbp_get_topic_author_id(bbp_get_reply_topic_id(bbp_get_reply_id())) === get_current_user_id()) {
             return true;
         }
 

@@ -134,6 +134,14 @@ class Plugin
         }
         return false;
     }
+
+    public function is_support_forum()
+    {
+        if(bpbbpst_get_forum_support_setting(bbp_get_forum_id()) <= 2)
+            return true;
+
+        return false;
+    }
 }
 
 /**
