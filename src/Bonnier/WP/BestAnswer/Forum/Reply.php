@@ -43,7 +43,7 @@ class Reply
         $bestAnswer = (int) $query->get(self::BEST_ANSWER_GET_PARAMETER);
 
         if(!empty($bestAnswer) && is_numeric($bestAnswer)) {
-            if(!bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($bestAnswer)) > 2)
+            if(bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($bestAnswer)) > 2)
                 return;
 
             self::set_best_answer($bestAnswer);
