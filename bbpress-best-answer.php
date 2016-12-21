@@ -137,10 +137,10 @@ class Plugin
 
     public function is_support_forum()
     {
-        if(bpbbpst_get_forum_support_setting(bbp_get_forum_id()) <= 2)
-            return true;
+        if(bpbbpst_get_forum_support_setting(bbp_get_forum_id()) > 2)
+            return false;
 
-        return false;
+        return true;
     }
 }
 
