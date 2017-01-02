@@ -90,10 +90,10 @@ class Reply
      */
     private static function set_best_answer($reply)
     {
-        $topic_id = bbp_get_reply_topic_id($reply);
+        $topicId = bbp_get_reply_topic_id($reply);
 
         update_post_meta(
-            $topic_id,
+            $topicId,
             PostMetaBox::SOLVED_BY_REPLY_SETTING_KEY,
             sanitize_text_field($reply)
         );
@@ -101,10 +101,10 @@ class Reply
 
     private static function remove_best_answer($reply)
     {
-        $topic_id = bbp_get_reply_topic_id($reply);
+        $topicId = bbp_get_reply_topic_id($reply);
 
         delete_post_meta(
-            $topic_id,
+            $topicId,
             PostMetaBox::SOLVED_BY_REPLY_SETTING_KEY,
             sanitize_text_field($reply)
         );
