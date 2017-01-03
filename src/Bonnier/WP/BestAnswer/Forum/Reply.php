@@ -113,7 +113,7 @@ class Reply
     public static function has_access($replyId)
     {
         if(current_user_can('manage_options')
-            || bbp_get_topic_author_id(bbp_get_reply_topic_id($replId))  === get_current_user_id()) {
+            || bbp_get_topic_author_id(bbp_get_reply_topic_id($replyId))  === get_current_user_id()) {
             return true;
         }
 
