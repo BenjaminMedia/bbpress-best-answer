@@ -9,7 +9,7 @@ class PostMetaBox
     /**
      * Setting for best answer marked
      */
-    const SOLVED_BY_REPLY_SETTING_KEY = 'bbp_best_reply';
+    const SOLVED_BY_REPLY_SETTING_KEY = '_bbp_best_answer_id';
 
     /**
      * Register the meta box in Wordpress backend
@@ -32,8 +32,8 @@ class PostMetaBox
     {
         $fieldOutput =  "<p>";
         $fieldOutput .= "<strong class='label' style='width:150px'>Mark as best answer</strong>";
-        $fieldOutput .= "<label class='screen-reader-text' for='bbp_best_reply'>Mark as best answer</label>";
-        $fieldOutput .= "<input type='checkbox' value='true' name='bbp_best_reply' id='bbp_best_reply' ".self::is_checked()." />";
+        $fieldOutput .= "<label class='screen-reader-text' for='_bbp_best_answer_id'>Mark as best answer</label>";
+        $fieldOutput .= "<input type='checkbox' value='true' name='_bbp_best_answer_id' id='_bbp_best_answer_id' ".self::is_checked()." />";
         $fieldOutput .= "</p>";
 
         echo $fieldOutput;
