@@ -20,10 +20,10 @@ class Reply
 
     public static function parse_remove_answer(WP_Query $query)
     {
-        if(!static::has_access())
-            return;
-
         $removeAnswer = (int) $query->get(self::REMOVE_ANSWER_GET_PARAMETER);
+
+        if(!static::has_access($removeAnswer))
+            return;
 
         if(!empty($removeAnswer) && is_numeric($removeAnswer)) {
             if(!bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($removeAnswer)) > 2)
@@ -36,11 +36,11 @@ class Reply
 
     public static function parse_best_answer(WP_Query $query)
     {
-        // If the user dose not have access
-        if(!static::has_access())
-            return;
-
         $bestAnswer = (int) $query->get(self::BEST_ANSWER_GET_PARAMETER);
+
+        // If the user dose not have access
+        if(!static::has_access($bestAnswer))
+            return;
 
         if(!empty($bestAnswer) && is_numeric($bestAnswer)) {
             if(bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($bestAnswer)) > 2)
@@ -110,10 +110,10 @@ class Reply
         );
     }
 
-    public static function has_access()
+    public static function has_access($reply_id)
     {
         if(current_user_can('manage_options')
-            || bbp_get_topic_author_id(bbp_get_reply_topic_id(bbp_get_reply_id())) === get_current_user_id()) {
+            || bbp_get_topic_author_id(bbp_get_reply_topic_id($reply_id))  === get_current_user_id()) {
             return true;
         }
 
