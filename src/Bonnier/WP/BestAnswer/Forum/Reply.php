@@ -18,14 +18,17 @@ class Reply
         add_filter('parse_query', [__CLASS__, 'parse_remove_answer']);
     }
 
+    /**
+     * @param WP_Query $query
+     */
     public static function parse_remove_answer(WP_Query $query)
     {
         $removeAnswer = (int) $query->get(self::REMOVE_ANSWER_GET_PARAMETER);
 
-        if(!static::has_access($removeAnswer))
+        if( !static::has_access($removeAnswer))
             return;
 
-        if(!empty($removeAnswer) && is_numeric($removeAnswer)) {
+        if( !empty($removeAnswer) && is_numeric($removeAnswer)) {
             if(!bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($removeAnswer)) > 2)
                 return;
 
@@ -34,15 +37,18 @@ class Reply
         }
     }
 
+    /**
+     * @param WP_Query $query
+     */
     public static function parse_best_answer(WP_Query $query)
     {
         $bestAnswer = (int) $query->get(self::BEST_ANSWER_GET_PARAMETER);
 
         // If the user dose not have access
-        if(!static::has_access($bestAnswer))
+        if( !static::has_access($bestAnswer))
             return;
 
-        if(!empty($bestAnswer) && is_numeric($bestAnswer)) {
+        if( !empty($bestAnswer) && is_numeric($bestAnswer)) {
             if(bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($bestAnswer)) > 2)
                 return;
 
@@ -51,6 +57,10 @@ class Reply
         }
     }
 
+    /**
+     * @param $vars
+     * @return array
+     */
     public static function add_query_vars_filter($vars)
     {
         $vars[] = self::BEST_ANSWER_GET_PARAMETER;
@@ -58,11 +68,19 @@ class Reply
         return $vars;
     }
 
+    /**
+     * @return mixed
+     */
     public static function generate_best_answer_url()
     {
         return self::generate_url(self::BEST_ANSWER_GET_PARAMETER);
     }
 
+    /**
+     * Generate the removal url for frontend
+     *
+     * @return mixed
+     */
     public static function generate_removal_url()
     {
         return self::generate_url(self::REMOVE_ANSWER_GET_PARAMETER);
@@ -85,6 +103,8 @@ class Reply
     }
 
     /**
+     * Set the best answer
+     *
      * @param $reply
      * @return void
      */
@@ -97,8 +117,18 @@ class Reply
             PostMetaBox::SOLVED_BY_REPLY_SETTING_KEY,
             sanitize_text_field($reply)
         );
+
+        update_post_meta(
+            $topicId,
+            PostMetaBox::SOLVED_THREAD_SETTING_KEY,
+            '2'
+        );
     }
 
+    /**
+     * Removes the best answer for a thread
+     * @param $reply
+     */
     private static function remove_best_answer($reply)
     {
         $topicId = bbp_get_reply_topic_id($reply);
@@ -108,8 +138,20 @@ class Reply
             PostMetaBox::SOLVED_BY_REPLY_SETTING_KEY,
             sanitize_text_field($reply)
         );
+
+        // Update the value, do not delete it!
+        update_post_meta(
+            $topicId,
+            PostMetaBox::SOLVED_THREAD_SETTING_KEY,
+            '1'
+        );
     }
 
+    /**
+     * Check if the user has the required access
+     * @param $replyId
+     * @return bool
+     */
     public static function has_access($replyId)
     {
         if(current_user_can('manage_options')

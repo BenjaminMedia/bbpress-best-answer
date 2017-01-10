@@ -11,6 +11,9 @@ class PostMetaBox
      */
     const SOLVED_BY_REPLY_SETTING_KEY = '_bbp_best_answer_id';
 
+    // This is a key, for another plugin! Do NOT change.
+    const SOLVED_THREAD_SETTING_KEY = '_bpbbpst_support_topic';
+
     /**
      * Register the meta box in Wordpress backend
      *
@@ -20,11 +23,14 @@ class PostMetaBox
     {
         if(current_user_can('manage_options'))
         {
-            add_action('do_meta_boxes', function() {
+            /*
+             // Disabled for now until it has been requested.
+             add_action('do_meta_boxes', function() {
                 add_meta_box('_bbp_forum_description', 'Best Answer', [__CLASS__, 'meta_box_content'], 'reply','side','high');
             });
 
             add_action('save_post', [__CLASS__, 'save_meta_box_settings']);
+            */
         }
     }
 
@@ -49,7 +55,16 @@ class PostMetaBox
                 $topicId,
                 self::SOLVED_BY_REPLY_SETTING_KEY,
                 sanitize_text_field(get_the_ID())
-           );
+            );
+
+            /*
+             * Update post meta for the other plugin
+             */
+            update_post_meta(
+                $topicId,
+                self::SOLVED_THREAD_SETTING_KEY,
+                '2'
+            );
         }
     }
 
