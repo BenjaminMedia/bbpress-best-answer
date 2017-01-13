@@ -128,8 +128,7 @@ class Plugin
 
     public function show_tool()
     {
-        if(current_user_can('manage_options') || bbp_get_topic_author_id(bbp_get_reply_topic_id(get_the_ID())) === get_current_user_id())
-        {
+        if (current_user_can('publish_forums') || bbp_get_topic_author_id(bbp_get_reply_topic_id(get_the_ID())) === get_current_user_id()) {
             return true;
         }
         return false;
@@ -137,7 +136,7 @@ class Plugin
 
     public function is_support_forum()
     {
-        if(bpbbpst_get_forum_support_setting(bbp_get_forum_id()) > 2)
+        if (bpbbpst_get_forum_support_setting(bbp_get_forum_id()) > 2)
             return false;
 
         return true;
