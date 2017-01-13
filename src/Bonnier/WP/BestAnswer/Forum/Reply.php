@@ -140,10 +140,9 @@ class Reply
         );
 
         // Update the value, do not delete it!
-        update_post_meta(
+        delete_post_meta(
             $topicId,
-            PostMetaBox::SOLVED_THREAD_SETTING_KEY,
-            '1'
+            PostMetaBox::SOLVED_THREAD_SETTING_KEY
         );
     }
 
@@ -154,7 +153,7 @@ class Reply
      */
     public static function has_access($replyId)
     {
-        if(current_user_can('manage_options')
+        if(current_user_can('publish_forums')
             || bbp_get_topic_author_id(bbp_get_reply_topic_id($replyId))  === get_current_user_id()) {
             return true;
         }

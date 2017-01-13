@@ -21,7 +21,7 @@ class PostMetaBox
      */
     public static function register_meta_box()
     {
-        if(current_user_can('manage_options'))
+        if(current_user_can('publish_forums'))
         {
             /*
              // Disabled for now until it has been requested.
