@@ -21,7 +21,7 @@ class PostMetaBox
      */
     public static function register_meta_box()
     {
-        if(current_user_can('publish_forums'))
+        if (current_user_can('publish_forums'))
         {
             /*
              // Disabled for now until it has been requested.
@@ -47,8 +47,7 @@ class PostMetaBox
 
     public static function save_meta_box_settings()
     {
-        if(isset($_POST[self::SOLVED_BY_REPLY_SETTING_KEY]))
-        {
+        if (isset($_POST[self::SOLVED_BY_REPLY_SETTING_KEY])) {
             $topicId = bbp_get_reply_topic_id(get_the_ID());
 
             update_post_meta(

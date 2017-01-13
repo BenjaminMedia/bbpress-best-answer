@@ -25,10 +25,10 @@ class Reply
     {
         $removeAnswer = (int) $query->get(self::REMOVE_ANSWER_GET_PARAMETER);
 
-        if( !static::has_access($removeAnswer))
+        if (!static::has_access($removeAnswer))
             return;
 
-        if( !empty($removeAnswer) && is_numeric($removeAnswer)) {
+        if (!empty($removeAnswer) && is_numeric($removeAnswer)) {
             if(!bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($removeAnswer)) > 2)
                 return;
 
@@ -45,10 +45,10 @@ class Reply
         $bestAnswer = (int) $query->get(self::BEST_ANSWER_GET_PARAMETER);
 
         // If the user dose not have access
-        if( !static::has_access($bestAnswer))
+        if (!static::has_access($bestAnswer))
             return;
 
-        if( !empty($bestAnswer) && is_numeric($bestAnswer)) {
+        if (!empty($bestAnswer) && is_numeric($bestAnswer)) {
             if(bpbbpst_get_forum_support_setting(bbp_get_reply_forum_id($bestAnswer)) > 2)
                 return;
 
@@ -153,8 +153,8 @@ class Reply
      */
     public static function has_access($replyId)
     {
-        if(current_user_can('publish_forums')
-            || bbp_get_topic_author_id(bbp_get_reply_topic_id($replyId))  === get_current_user_id()) {
+        if (current_user_can('publish_forums')
+            || bbp_get_topic_author_id(bbp_get_reply_topic_id($replyId)) === get_current_user_id()) {
             return true;
         }
 
