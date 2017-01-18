@@ -10,6 +10,7 @@
 
 namespace Bonnier\WP\BestAnswer;
 
+use Bonnier\WP\BestAnswer\Admin\BulkAction;
 use Bonnier\WP\BestAnswer\Admin\PostMetaBox;
 use Bonnier\WP\BestAnswer\Forum\Reply;
 
@@ -84,6 +85,7 @@ class Plugin
     {
         PostMetaBox::register_meta_box();
         Reply::register();
+        BulkAction::register();
     }
 
     /**
