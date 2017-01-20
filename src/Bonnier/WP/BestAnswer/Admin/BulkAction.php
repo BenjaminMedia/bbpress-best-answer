@@ -27,8 +27,7 @@ class BulkAction
             add_filter('bulk_actions-edit-'.bbp_get_topic_post_type(), [__CLASS__, 'my_custom_bulk_actions']);
             add_filter('handle_bulk_actions-edit-'.bbp_get_topic_post_type(), [__CLASS__, 'my_bulk_action_handler'], 10, 3);
             add_action('admin_notices', [__CLASS__, 'my_bulk_action_admin_notice']);
-
-
+            
         }
     }
 
@@ -42,6 +41,8 @@ class BulkAction
         if ($doaction !== 'resolved') {
             return $redirect_to;
         }
+
+        // source: https://github.com/imath/buddy-bbPress-Support-Topic/blob/master/includes/admin.php
 
         foreach ($post_ids as $post_id) {
             // we need to check the topic belongs to a support featured forum
