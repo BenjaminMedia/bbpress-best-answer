@@ -62,12 +62,8 @@ class BulkAction
         if (!empty($_REQUEST['bulk_resolved_posts'])) {
             $resolvedPostCount = (int)$_REQUEST['bulk_resolved_posts'];
 
-            printf( '<div id="message" class="updated fade">' .
-                _n( '%s Topic has been set to resolved.',
-                    '%s Topics has been set to resolved.',
-                    $resolvedPostCount,
-                    'bbpress-best-answer'
-                ) . '</div>', $resolvedPostCount );
+            $translation = ($resolvedPostCount <= 1) ? pll__('Topic has been set to resolved') : pll__('Topics has been set to resolved');
+            printf('<div id="message" class="updated fade">%s ' . $translation . '</div>', $resolvedPostCount);
         }
     }
 }
