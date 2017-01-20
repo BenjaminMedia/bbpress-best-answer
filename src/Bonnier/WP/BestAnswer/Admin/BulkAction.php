@@ -50,9 +50,6 @@ class BulkAction
             if ( empty( $forum_id ) || ( 3 == bpbbpst_get_forum_support_setting( $forum_id )) ) {
                 continue;
             }
-            if ( 2 == bpbbpst_get_forum_support_setting( $forum_id )) {
-                continue;
-            }
             update_post_meta( $post_id, self::SOLVED_THREAD_SETTING_KEY, '2' );
         }
 
