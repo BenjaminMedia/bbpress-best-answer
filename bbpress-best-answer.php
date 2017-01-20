@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Bonnier bbPress best answer
- * Version: 0.1.10
+ * Version: 0.1.11
  * Plugin URI: https://github.com/BenjaminMedia/bbpress-best-answer
  * Description: This plugin gives you the ability to select a post in bbPress as the best answer
  * Author: Bonnier - Michael Sørensen
@@ -10,6 +10,7 @@
 
 namespace Bonnier\WP\BestAnswer;
 
+use Bonnier\WP\BestAnswer\Admin\BulkAction;
 use Bonnier\WP\BestAnswer\Admin\PostMetaBox;
 use Bonnier\WP\BestAnswer\Forum\Reply;
 
@@ -84,6 +85,7 @@ class Plugin
     {
         PostMetaBox::register_meta_box();
         Reply::register();
+        BulkAction::register();
     }
 
     /**
