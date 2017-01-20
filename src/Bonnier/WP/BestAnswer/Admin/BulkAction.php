@@ -63,7 +63,7 @@ class BulkAction
             $resolvedPostCount = (int)$_REQUEST['bulk_resolved_posts'];
 
             printf( '<div id="message" class="updated fade">' .
-                _n( '%s Topics has been set to resolved.',
+                _n( '%s Topic has been set to resolved.',
                     '%s Topics has been set to resolved.',
                     $resolvedPostCount,
                     'bbpress-best-answer'
