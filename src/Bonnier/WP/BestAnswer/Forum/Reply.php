@@ -140,9 +140,10 @@ class Reply
         );
 
         // Update the value, do not delete it!
-        delete_post_meta(
+        update_post_meta(
             $topicId,
-            PostMetaBox::SOLVED_THREAD_SETTING_KEY
+            PostMetaBox::SOLVED_THREAD_SETTING_KEY,
+            '1'
         );
     }
 

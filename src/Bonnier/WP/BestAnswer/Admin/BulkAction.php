@@ -35,7 +35,7 @@ class BulkAction
 
     public static function set_as_resolved($actions)
     {
-        $actions['resolved'] = pll__('Set status to Resloved');
+        $actions['resolved'] = pll__('Set status to Resolved');
         return $actions;
     }
 
